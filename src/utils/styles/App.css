@@ -1,0 +1,73 @@
+#root,
+html,
+body {
+	height: 100%;
+}
+.navBar {
+	font-size: 24px;
+	height: auto;
+}
+.navItem {
+	font-size: 20px;
+	width: 200px;
+	margin: 10px;
+}
+.outline-torchred {
+	border: 1px solid #fb0246;
+}
+
+.outline-success {
+	border: 1px solid #fff;
+}
+.node {
+	width: 25px;
+	height: 25px;
+	outline: 1px solid #bcbcbc;
+}
+/* @media only screen and (max-width: 576px) {
+	.node {
+
+
+		width: 200px;
+		height: 25px;
+	}
+} */
+
+.node-start {
+	background: #03bd84;
+}
+.node-finish {
+	background: #fb0246;
+}
+.node-visited{
+		background: #3473df;
+}
+.node-path{
+background: #fa7a5b;
+}
+.node-wall{
+	background: #0f2845;
+}
+.grid {
+	background: #fff;
+	margin: auto;
+	scroll-behavior: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+
+
+
+.parent {
+overflow-y: scroll;
+text-align:center;
+ padding: 20px;
+}
+.center {
+
+	display:inline-block;
+    max-height:100%;
+}
