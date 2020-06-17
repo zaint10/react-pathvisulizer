@@ -1,141 +1,243 @@
 import React, { Component } from 'react';
-import { ROWS, COLS, D_START, D_FINISH } from 'assets/consts';
-import Row from 'react-bootstrap/Row';
+import $ from 'jquery';
+import { Node } from 'components/presentational/';
 
-import { Node } from 'components/presentational';
+import * as CONSTS from 'assets/consts';
+import { connect } from 'react-redux';
+import * as ACTIONS from 'redux-store/action-types';
 
-export default class Grid extends Component {
+import { dijkstra } from 'assets/algorithms/dijkstra.js';
+import { bfs_dfs } from 'assets/algorithms/bfs_dfs.js';
+import { astar } from 'assets/algorithms/astar';
+import { getNodesInShortestPathOrder } from 'assets/algorithms/utills';
+import * as animate from 'assets/animate';
+import { timeout, Promise } from 'q';
+
+class Grid extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			grid: [],
-			startNode: {
-				row: 10,
-				node: 3,
-				marked: true
-			},
-			finishNode: {
-				row: 10,
-				node: 13,
-				marked: true
-			},
-			visualize:true
-
-		};
+		this.handleMouseEnter = this.handleMouseEnter.bind(this);
+		this.handleMouseDown = this.handleMouseDown.bind(this);
+		this.handleMouseUp = this.handleMouseUp.bind(this);
+		this.handleKeyPressed = this.handleKeyPressed.bind(this);
+		this.handleKeyUp = this.handleKeyUp.bind(this);
+		this.whichKeyPressed = null;
+		this.isMousePressed = false;
+		this.whichNodePressed = null;
 	}
+
 	componentDidMount() {
-		const grid = initGrid();
-		this.setState({ grid });
+		if (!this.props.grid.length) this.props.initGrid(true);
+		document.addEventListener('keypress', this.handleKeyPressed, false);
+		document.addEventListener('keyup', this.handleKeyUp, false);
+	}
+	componentDidUpdate() {
+		if (this.props.initVisualizer) {
+			$("table#grid .node").removeClass("node-visited").removeClass('node-path')
+			this.props.visualizeAlgorithm();
+			// let algorithm = this.props;
+			// this.visualize(algorithm).then(() => {
+			// 	// this.props.setVisualizeState(false);
+			// });
+		}
+	}
+	// async visualize(algorithm='') {
+	// 	let { grid, startNode, finishNode } = this.props;
+	// 	// console.log(startNode, finishNode);
+	// 	startNode = grid[startNode.row][startNode.node];
+	// 	finishNode = grid[finishNode.row][finishNode.node];
+
+	// 	const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+	// 	// const visitedNodesInOrder = bfs_dfs('bfs', grid, startNode, finishNode);
+	// 	// const visitedNodesInOrder = astar(grid, startNode, finishNode);
+	// 	const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+	// 	console.log(visitedNodesInOrder)
+	// 	// console.log(grid)
+	// 	const animatee = new animate.Djsktra(10,50);
+	// 	await animatee.djsktra(visitedNodesInOrder, nodesInShortestPathOrder);
+
+	// 	return visitedNodesInOrder;
+	// }
+	shouldComponentUpdate(nextProps, nextState) {
+		return !nextProps.isVisualized;
+		// console.log(this.props === nextState)
+		// console.log(this.props);
+		// console.log(nextProps)
 	}
 
-	onClickNode = (rowIdx, nodeIdx) => {
-		console.log(`Marking Row: ${rowIdx} - Col: ${nodeIdx}`);
-		let { startNode, finishNode, grid} = this.state;
-	
-		if (startNode.marked && finishNode.marked) {
-			grid = initGrid(false);
-			grid[rowIdx][nodeIdx] = { ...grid[rowIdx][nodeIdx], isStart: true };
-			this.setState({ 
-				grid: grid,
-				startNode: { ...startNode, marked: true},
-				finishNode: { ...finishNode, marked: false },
-				visualize: false
-			 });
-			 return
+	componentWillUnmount() {
+		document.removeEventListener('keypress', this.handleKeyPressed, false);
+		document.removeEventListener('keyup', this.handleKeyUp, false);
+	}
+
+	handleKeyPressed(e) {
+		if (e.repeat) {
+			return;
 		}
-		
-		if (!startNode.marked) {
-			grid[rowIdx][nodeIdx] = { ...grid[rowIdx][nodeIdx], isStart: true };
-			this.setState({
-				grid: grid,
-				startNode: {
-					marked: true,
-					row: rowIdx,
-					node: nodeIdx
-				}
-				
-			});
-		} else if (!finishNode.marked) {
-			grid[rowIdx][nodeIdx] = { ...grid[rowIdx][nodeIdx], isFinish: true };
-			this.setState({
-				grid: grid,
-				finishNode: {
-					marked: true,
-					row: rowIdx,
-					node: nodeIdx
-				},
-				visualize:true
-			});
+		if (this.whichKeyPressed) return;
+		e = e || window.event;
+		console.log(e);
+
+		if (e.type === 'keypress') {
+			this.whichKeyPressed = e.code;
 		}
-	};
-	onMouseDownUp(rowIdx, nodeIdx) {}
-	onMouseEnter() {}
+	}
+	handleKeyUp(e) {
+		if (e.repeat) {
+			return;
+		}
+		if (this.whichKeyPressed) this.whichKeyPressed = null;
+	}
+
+	handleMouseDown(e, rowIdx, nodeIdx) {
+		const button = e.button;
+		if (button !== 0) return;
+		this.isMousePressed = true;
+		const $selector = $(`#node-${rowIdx}-${nodeIdx}`);
+		const node = $selector.attr('data-type');
+		this.whichNodePressed = node;
+		switch (node) {
+			case 'normal': {
+				this.props.startWallConstruction(rowIdx, nodeIdx, this.props.grid);
+				// $selector.removeClass('normal').addClass('node-wall').attr('data-type', 'node-wall');
+
+				break;
+			}
+			case 'node-start': {
+				break;
+			}
+			case 'node-finish': {
+				break;
+			}
+			default: {
+			}
+		}
+	}
+
+	handleMouseEnter(e, rowIdx, nodeIdx) {
+		if (!this.isMousePressed) return;
+		const $selector = $(`#node-${rowIdx}-${nodeIdx}`);
+		const node = $selector.attr('data-type');
+
+		if (node === 'node-wall') {
+			return;
+		}
+		switch (this.whichNodePressed) {
+			case 'normal': {
+				setTimeout(() => {
+					this.props.startWallConstruction(rowIdx, nodeIdx, this.props.grid);
+				}, 25);
+				// $selector.removeClass('normal').addClass('node-wall').attr('data-type', 'node-wall');
+				break;
+			}
+			case 'node-start': {
+				this.props.markGrid2(rowIdx, nodeIdx, 'node-start', this.props.grid);
+				// $('.node.node-start').removeClass('node-start').html('');
+				// $selector.removeClass('normal').addClass('node-start').attr('data-type', 'node-start')
+				// .html(`<i class="fas fa-rocket fa-lg" style="color: #fb0246;"></i>`);
+
+				break;
+			}
+			case 'node-finish': {
+				// $('.node.node-finish').removeClass('node-finish').html('');
+				this.props.markGrid2(rowIdx, nodeIdx, 'node-finish', this.props.grid);
+				break;
+			}
+			default: {
+			}
+		}
+	}
+
+	handleMouseUp(e, rowIdx, nodeIdx) {
+		const button = e.button;
+		if (button !== 0) return;
+		const $selector = document.getElementById(`node-${rowIdx}-${nodeIdx}`);
+		const node = $selector.getAttribute('data-type');
+		if (this.whichKeyPressed) {
+			if (this.isMousePressed && this.whichKeyPressed === 'KeyW') {
+				console.log('wall created');
+			}
+		} else if (node === 'normal') {
+			// this.props.markGrid(rowIdx, nodeIdx);
+		}
+		this.isMousePressed = false;
+		this.whichNodePressed = null;
+	}
+
 	render() {
 		console.log('Rendering Grid');
-		const { grid } = this.state;
-
-		return( 
-			
-			grid.map((row, rowIdx) => {
-				return (<div className={'row'}>{
-					row.map((node, nodeIdx) => {
-						
-						return <Node className={'center '} key={nodeIdx} node={node} 
-							startNode={this.state.startNode} finishNode={this.state.finishNode} callback={this.onClickNode} />
+		const { grid } = this.props;
+		
+		return (
+			<table id='grid' className="mx-auto">
+				<tbody>
+					{grid.map((row, rowIdx) => {
+						return (
+							<tr key={rowIdx}>
+								{row.map((node, nodeIdx) => {
+									return (
+										<Node
+											key={nodeIdx}
+											node={node}
+											startNode={this.props.startNode}
+											finishNode={this.props.finishNode}
+											onMouseDown={this.handleMouseDown}
+											onMouseEnter={this.handleMouseEnter}
+											onMouseUp={this.handleMouseUp}
+										/>
+									);
+								})}
+							</tr>
+						);
 					})}
-					</div>
-				
-			);
-			})
-				)
+				</tbody>
+			</table>
+		);
 	}
 }
 
-const initGrid = (DEFAULT = true) => {
-	const nodes = [];
-	for (let row = 0; row < ROWS; row++) {
-		const currentRow = [];
-		let currentNode = {};
-		for (let col = 0; col < COLS; col++) {
-			currentNode = createNode(row, col);
-			currentRow.push(currentNode);
-		}
-		nodes.push(currentRow);
-	}
-	if (DEFAULT) {
-		nodes[D_START.row][D_START.col] = { ...nodes[D_START.row][D_START.col], isStart: true };
-		nodes[D_FINISH.row][D_FINISH.col] = { ...nodes[D_FINISH.row][D_FINISH.col], isFinish: true };
-	}
-	// console.log(`Grid Initialized ${DEFAULT ? 'but with default nodes' : 'and Grid is Cleared from default nodes'}`);
-	return nodes;
-};
-const createNode = (row, col) => {
+const mapStateToProps = (state, ownProps) => ({
+	grid: state.grid,
+	startNode: state.startNode,
+	finishNode: state.finishNode,
+	initVisualizer: state.initVisualizer,
+	algorithm: state.algorithm.selected,
+	isVisualized: state.isVisualized
+});
+
+function mapDispatchToProps(dispatch, props) {
 	return {
-		rowIdx: row,
-		nodeIdx: col,
-		isStart: false,
-		isFinish: false,
-		isVisited: false,
-		isWall: false,
-		prevNode: null
+		initGrid: (DEFAULT_MARKING) => {
+			dispatch({
+				type: ACTIONS.SHOW_GRID,
+				payload: { ROWS: CONSTS.ROWS, COLS: CONSTS.COLS, DEFAULT_MARKING: DEFAULT_MARKING }
+			});
+		},
+		markGrid: (rowIdx, nodeIdx) => {
+			dispatch({
+				type: ACTIONS.MARK_GRID,
+				payload: { rowIdx: rowIdx, nodeIdx: nodeIdx }
+			});
+		},
+		markGrid2: (rowIdx, nodeIdx, node_type) => {
+			dispatch({
+				type: ACTIONS.MARK_GRID2,
+				payload: { rowIdx: rowIdx, nodeIdx: nodeIdx, node_type: node_type }
+			});
+		},
+		startWallConstruction: (rowIdx, nodeIdx, grid) => {
+			dispatch({
+				type: ACTIONS.START_WALL_CONSTRUCTION,
+				payload: { rowIdx, nodeIdx, grid }
+			});
+		},
+		visualizeAlgorithm: () => {
+			
+			dispatch({
+				type: ACTIONS.VISUALIZE_PATH
+			});
+		}
 	};
-};
+}
 
-// eslint-disable-next-line
-const setDefaultSettings = () => {
-	const grid = initGrid(true);
-	this.setState({
-		grid: grid,
-		start: {
-			row: D_START.row,
-			node: D_START.col,
-			isMark: true
-		},
-		finish: {
-			row: D_FINISH.row,
-			node: D_FINISH.col,
-			isMark: true
-		},
-
-	});
-};
+export default connect(mapStateToProps, mapDispatchToProps)(Grid);

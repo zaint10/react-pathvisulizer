@@ -1,33 +1,19 @@
 import React, { Component } from 'react';
 
-
 import { Grid } from 'components/container';
 
-class PathVisualizer extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-		this.onNodeClick = this.onhandleEvent.bind(this);
-	}
 
-	
-	onhandleEvent() {
-		console.log('PathFinding Handle Event');
-	}
-	
+class PathVisualizer extends Component {
 	render() {
-		console.log('PathVisualizer->Grid Rendering');
-	
+		// console.log('Rendering PathVisualizer');
+		
 		return (
-			
-			<div className="container-fluid " >
-						<Grid callback={this.onhandleEvent} />
-				</div>
-				
-			
-			
+			<div className="container-fluid p-5" style={{minHeight: '75%'}}>
+				<Grid algo = {null} />
+			</div>
 		);
 	}
 }
+
 
 export default PathVisualizer;

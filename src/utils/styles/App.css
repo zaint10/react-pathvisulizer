@@ -1,8 +1,78 @@
 #root,
 html,
 body {
-	height: 100%;
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
 }
+
+.settings-navbar{
+	position: absolute;
+	text-align: center;
+	background-color: #0f2845;
+	right:0px;
+	width: 350px;
+	height: 100%;
+	overflow-x: hidden; 
+  	padding-top: 40px; 
+  	transition: 0.5s; 
+}
+
+.settings-navbar > side-nav{
+	list-style-type: none;
+	padding:0px;
+	margin:0px;
+
+}
+
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+button.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+}
+button.dropdown-toggle .text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 80%;
+display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.descriptors span{
+	display: flex;
+}
+
+
+.descriptors span div{
+	
+	margin-right: 5px;
+}
+
+.descriptors span div i{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.wrap_text {
+	white-space: normal !important;
+	word-wrap: break-word;
+}
+
 .navBar {
 	font-size: 24px;
 	height: auto;
@@ -12,6 +82,16 @@ body {
 	width: 200px;
 	margin: 10px;
 }
+
+@keyframes example {
+	from {
+		background-color: white;
+	}
+	to {
+		background-color: #3473df;
+	}
+}
+
 .outline-torchred {
 	border: 1px solid #fb0246;
 }
@@ -20,9 +100,9 @@ body {
 	border: 1px solid #fff;
 }
 .node {
-	width: 25px;
-	height: 25px;
-	outline: 1px solid #bcbcbc;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #bcbcbc;
 }
 /* @media only screen and (max-width: 576px) {
 	.node {
@@ -34,19 +114,23 @@ body {
 } */
 
 .node-start {
-	background: #03bd84;
+	color: #03bd84;
 }
 .node-finish {
-	background: #fb0246;
+	color: #fb0246;
 }
-.node-visited{
-		background: #3473df;
+.node-visited {
+	background: #3473df;
 }
-.node-path{
-background: #fa7a5b;
+.node-path {
+	background: #fa7a5b !important;
 }
-.node-wall{
+.node-wall {
 	background: #0f2845;
+}
+
+.node-backtracking {
+	background: #6a0dad;
 }
 .grid {
 	background: #fff;
@@ -55,19 +139,239 @@ background: #fa7a5b;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+}
+.wrapper {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.uu {
+	height: 100px;
 }
 
 
 
 
-.parent {
-overflow-y: scroll;
-text-align:center;
- padding: 20px;
+/*---------------------------------------------*/
+input {
+	outline: none;
+	border: none;
 }
-.center {
 
-	display:inline-block;
-    max-height:100%;
+textarea {
+  outline: none;
+  border: none;
 }
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+
+
+/*---------------------------------------------*/
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+
+
+/*==================================================================
+[ Form ]*/
+
+.setting-rows-cols-wrapper{
+  background-color: transparent;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+
+/*------------------------------------------------------------------
+[ Input ]*/
+
+.wrap-input100 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  width: 50%;
+  height: 55px;
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-bottom: none;
+  background-color: #fff;
+}
+
+.wrap-input100.rs1 {
+  border-top-left-radius: 12px;
+  border-right: none;
+}
+
+.wrap-input100.rs2 {
+  border-top-right-radius: 12px;
+}
+
+.label-input100 {
+  font-family: OpenSans-Bold;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  padding-left: 30px;
+  left: 0;
+  top: 28px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.input100 {
+  font-family: OpenSans-Bold;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0 30px;
+}
+
+input.input100 {
+  height: 100%;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+
+.input100:focus {
+  height: 55px;
+}
+
+.input100:focus + .label-input100 {
+  top: 10px;
+  font-size: 13px;
+  color: #111111;
+}
+
+
+
+/*------------------------------------------------------------------
+[ Button ]*/
+.container-login100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login100-form-btn {
+  font-family: OpenSans-Bold;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 70px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  overflow: hidden;
+  background: #7b47ba;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  z-index: 1;
+}
+
+.login100-form-btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
+  background: #fb0246 ;
+  background: -webkit-linear-gradient(right, #6a11cb, #2575fc);
+  background: -o-linear-gradient(right, #6a11cb, #2575fc);
+  background: -moz-linear-gradient(right, #6a11cb, #2575fc);
+  background: linear-gradient(right, #6a11cb, #2575fc);
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login100-form-btn:hover {
+  background-color: transparent;
+}
+.login100-form-btn:hover:before {
+  opacity: 1;
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Responsive ]*/
+@media (max-width: 576px) {
+  .wrap-input100 {
+    width: 100%;
+  }
+
+  .wrap-input100.rs1 {
+    border-top-right-radius: 12px;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .wrap-input100.rs2 {
+    border-top-right-radius: 0px;
+  }
+}
+
+
+
+

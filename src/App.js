@@ -1,20 +1,28 @@
 import React from 'react';
-import 'utils/styles/bootstrap.css'
+import 'utils/styles/bootstrap.css';
 import 'utils/styles/App.css';
 
-import { PathVisualizer,Header } from 'components/container';
-import { Footer} from 'components/presentational';
+import { PathVisualizer, Header, Settings } from 'components/container';
+import { Footer, IconDescriptor } from 'components/presentational';
 
+import { Provider } from 'react-redux';
+import { store } from 'redux-store';
 
 function App() {
 	return (
-	
-		<div >
-			<Header />
-			<PathVisualizer className={' paknbrent'} />		
+		<Provider key={'root'} store={store}>
+			
+			<div className="wrapper">
+				<Header />
+				
+				<Settings />
+			
+				<IconDescriptor />
+				<PathVisualizer />
 				<Footer />
-		</div>
-		
+			</div>
+			
+		</Provider>
 	);
 }
 

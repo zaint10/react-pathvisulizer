@@ -1,22 +1,30 @@
-import React from 'react'
+import React from 'react';
+import radar from 'assets/icons/radar.svg'
+// import dragon_ball from 'assets/icons/drgon_ball_4_stars.png'
+import dragon_ball from 'assets/icons/drgon_ball_4_stars.svg'
+const Node = (props) => {
+	const { node } = props;
+	const { rowIdx, nodeIdx, isStart, isFinish, isWall } = node;
 
-import Col from 'react-bootstrap/Col';
-
-const Node=(props)=>  {
-	const { node }=props
-	const { rowIdx, nodeIdx, isStart, isFinish } = node;
+	const className = isStart ? 'node-start' : isFinish ? 'node-finish' : isWall ? 'node-wall' : 'normal';
 	
-	const className = isStart ? 'node-start' : isFinish ? 'node-finish' : ''
-	if (isStart){
-		console.log('1')
-	}
-	if (isFinish){
-		console.log('d')
-	}
-	return(
-		<div className={`node col-0 ${className} `}
-		
-		onClick={() =>props.callback(rowIdx, nodeIdx)}></div> 	)
-	}
+	return (
+		<td
+			id={`node-${rowIdx}-${nodeIdx}`}
+			key={`node-${rowIdx}-${nodeIdx}`}
+			className={`col-0 text-center node ${className}`}
+			data-type={className}
+			onMouseDown={(e) => props.onMouseDown(e, rowIdx, nodeIdx)}
+			onMouseEnter={(e) => props.onMouseEnter(e, rowIdx, nodeIdx)}
+			onMouseUp={(e) => props.onMouseUp(e, rowIdx, nodeIdx)}
+		>
+			{className === 'node-start' ?
+				(<img className="node-start" src={radar}/>) : 
+				className === 'node-finish' ? 
+				(<img className="node-finish" src={dragon_ball}/>) : ''
+			}
+		</td>
+	);
+};
 
 export default Node;

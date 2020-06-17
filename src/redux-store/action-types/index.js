@@ -1,6 +1,11 @@
-
-const VISUALIZE_PATH = 'visualize';
-
-const CLEAR_GRID = 'clear';
-const SHOW_GRID='showgrid'
-export { VISUALIZE_PATH, CLEAR_GRID, SHOW_GRID}
+export const  VISUALIZE_PATH = 'visualize_path';
+export const RESET_GRID = 'reset';
+export const SHOW_GRID = 'showGrid';
+export const MARK_GRID = 'markgrid';
+export const SET_ALGORITHM = 'setalgorithm';
+export const SET_VISUALIZE_BUTTON_TITLE = 'visualize_btn_title';
+export const START_WALL_CONSTRUCTION = 'start_wall_construction';
+export const HALT_WALL_CONSTRUCTION = 'halt_wall_construction';
+export const MARK_GRID2 = 'markgrid2';
+export const VISUALIZE = 'visualize';
+export const VISUALIZE_COMPLETE = 'visualize_complete';

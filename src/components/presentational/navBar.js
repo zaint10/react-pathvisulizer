@@ -1,39 +1,143 @@
 import React from 'react';
+import $ from 'jquery';
 import { Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import { path_finding_algorithm_mapper, backtracking_algorithm_mapper } from 'assets/consts.js';
 function NavBar(props) {
-	const { dropDownTitle, btnVisualizeTitle} = props;
+	const { btnVisualizeTitle, selectedDropdownItemKey } = props;
+	
+	const menu_items_1 = [],
+	menu_items_2 = [];
+	let dropdownTitle1 = 'algorithms',
+	dropdownTitle2 = 'backtracking'
+	for (const [ key, value ] of Object.entries(path_finding_algorithm_mapper)) {
+		if(key === selectedDropdownItemKey){
+			$("table .node.node-q").html('');
+			$("table .node .node-start").removeClass('d-none');
+			$("table .node .node-finish").removeClass('d-none');
+			
+			dropdownTitle1 =  value
+		}
+		   
+		menu_items_1.push(
+			<a key={key} data-key={key} className="dropdown-item" href="#">
+				{value}
+			</a>
+		);
+	}
+	
+	for (const [ key, value ] of Object.entries(backtracking_algorithm_mapper)) {
+		if(key === selectedDropdownItemKey){
+			$("table .node .node-start").addClass('d-none');
+			$("table .node .node-finish").addClass('d-none');
+			dropdownTitle2 =  value
+		}
+		menu_items_2.push(
+			<a key={key} data-key={key} className="dropdown-item wrap_text" href="#">
+				{value}
+			</a>
+		);
+	}
+
+	
 
 	return (
-		<Navbar collapseOnSelect={true} variant="light" className="bg-zodiacblue text-uppercase" expand="lg md">
-			<h2 className="h2 text-torchred font-weight-bold  mr-2">PathFinding Visualizer</h2>
-			<Navbar.Toggle className="bg-sunsetorange " aria-controls="basic-navbar-nav" />
-			<Navbar.Collapse id="basic-navbar-nav justify-content-center nav-fill">
-				<Nav id="basic-navbar-nav" className="justify-content-center nav-pills w-100">
-					<Nav.Item className="navItem rounded">
-						<NavDropdown
-							id="basic-nav-dropdown"
-							onSelect={(eventkey, event) => props.onSelect(eventkey, event)}
-							title={<span className="text-white">{dropDownTitle}</span>}
+		<nav className="navbar navbar-dark navbar-expand-lg bg-zodiacblue text-uppercase pl-1 py-1">
+			<div className="navbar-brand p-0 text-right">
+				<h2 className="h2 text-torchred font-weight-bold ">PathFinding Visualizer</h2>
+
+				<div className="text-right">
+					<h6>
+						<span>
+							<i className="fab fa-github mx-1 text-white" />
+						</span>
+						<a
+							className="text-torchred font-weight-bold"
+							href="https://github.com/zaint10?tab=repositories"
+							target="_blank"
 						>
-							<NavDropdown.Item eventKey={1}>Dijkstra</NavDropdown.Item>
-							<NavDropdown.Item eventKey={2}>A*</NavDropdown.Item>
-						</NavDropdown>
-					</Nav.Item>
-					<Nav.Item>
-						<Button onClick={(e) => props.onClick(e)} className="navItem outline-torchred bg-sunsetorange">
+							By Zain Tanveer
+						</a>
+					</h6>
+				</div>
+			</div>
+			<button
+				className="navbar-toggler bg-sunsetorange"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				
+			>
+				<span className="navbar-toggler-icon" />
+			</button>
+
+			<div className="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul className="navbar-nav  mr-auto">
+					<li className="nav-item dropdown">
+						<button
+							className="btn btn-primary dropdown-toggle dropdown-toggle text-white navItem text-capitalize"
+							href="#"
+							id="navbarDropdownbtnPathAlgos"
+							role="button"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							<span className="text">{dropdownTitle1}</span>
+							<span className="caret"></span>
+						</button>
+						<div className="dropdown-menu" aria-labelledby="#navbarDropdownbtnPathAlgos" onClick={props.onSelect}>
+							{menu_items_1}
+						</div>
+					</li>
+					<li className="nav-item dropdown">
+						<button
+							className="btn btn-primary dropdown-toggle dropdown-toggle text-white navItem text-capitalize"
+							href="#"
+							id="navbarDropdownbtnBacktracking"
+							role="button"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							<span className="text">{dropdownTitle2}</span>
+							<span className="caret"></span>
+						</button>
+						<div className="dropdown-menu" aria-labelledby="#navbarDropdownbtnBacktracking" onClick={props.onSelect}>
+							{menu_items_2}
+						</div>
+					</li>
+
+					<li className="nav-item">
+						<button className=" btn navItem outline-torchred bg-sunsetorange" onClick={props.onClick}>
 							{btnVisualizeTitle}
-						</Button>
-					</Nav.Item>
-				</Nav>
-				<Nav id="basic-navbar-nav" className=" justify-content-end nav-pills w-100">
-					<Nav.Item>
-						<Button onClick={(e) => props.onClick(e)} className="navItem outline-torchred">
-							Clear Grid
-						</Button>
-					</Nav.Item>
-				</Nav>
-			</Navbar.Collapse>
-		</Navbar>
+						</button>
+					</li>
+				</ul>
+				<ul className="navbar-nav justify-content-end mr-auto w-100">
+					<li className="nav-item">
+						<button className=" btn navItem btn-primary">Clear Grid</button>
+					</li>
+					<li className="nav-item">
+						<span onClick={openSettingsNav}>
+							<i className="toggle-collapse fas fa-cog fa-lg text-white" ></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</nav>
 	);
+}
+
+
+function openSettingsNav(){
+	const width = document.getElementById("settingNavBar").style.width;
+	if(width == '0px'){
+		document.getElementById("settingNavBar").style.width = '350px'
+	}else{
+		document.getElementById("settingNavBar").style.width = '0px'
+	}
+
 }
 export default NavBar;

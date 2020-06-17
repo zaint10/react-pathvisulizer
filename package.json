@@ -1,15 +1,17 @@
 {
-  "name": "pathvisualizer",
+  "name": "npm-init",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "jquery": "^3.5.1",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,5 +33,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaint10/react-pathvisulizer.git"
+  },
+  "author": "zain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zaint10/react-pathvisulizer/issues"
+  },
+  "homepage": "https://github.com/zaint10/react-pathvisulizer#readme"
 }
