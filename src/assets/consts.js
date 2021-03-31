@@ -1,4 +1,4 @@
-let ROWS = 20;
+let ROWS = 19;
 let COLS = 19;
 
 let mid = Math.floor(ROWS / 2)

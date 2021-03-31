@@ -32,13 +32,10 @@ class Grid extends Component {
 		document.addEventListener('keyup', this.handleKeyUp, false);
 	}
 	componentDidUpdate() {
+		$("table#grid .node").removeClass("node-visited").removeClass('node-path')
 		if (this.props.initVisualizer) {
-			$("table#grid .node").removeClass("node-visited").removeClass('node-path')
+			
 			this.props.visualizeAlgorithm();
-			// let algorithm = this.props;
-			// this.visualize(algorithm).then(() => {
-			// 	// this.props.setVisualizeState(false);
-			// });
 		}
 	}
 	// async visualize(algorithm='') {
@@ -126,7 +123,7 @@ class Grid extends Component {
 			case 'normal': {
 				setTimeout(() => {
 					this.props.startWallConstruction(rowIdx, nodeIdx, this.props.grid);
-				}, 25);
+				}, 15);
 				// $selector.removeClass('normal').addClass('node-wall').attr('data-type', 'node-wall');
 				break;
 			}
@@ -210,8 +207,8 @@ function mapDispatchToProps(dispatch, props) {
 		initGrid: (DEFAULT_MARKING) => {
 			dispatch({
 				type: ACTIONS.SHOW_GRID,
-				payload: { ROWS: CONSTS.ROWS, COLS: CONSTS.COLS, DEFAULT_MARKING: DEFAULT_MARKING }
-			});
+						payload: { ROWS: CONSTS.ROWS, COLS: CONSTS.COLS, DEFAULT_MARKING: DEFAULT_MARKING }
+					});
 		},
 		markGrid: (rowIdx, nodeIdx) => {
 			dispatch({

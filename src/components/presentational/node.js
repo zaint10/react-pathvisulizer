@@ -4,11 +4,12 @@ import radar from 'assets/icons/radar.svg'
 import dragon_ball from 'assets/icons/drgon_ball_4_stars.svg'
 const Node = (props) => {
 	const { node } = props;
-	const { rowIdx, nodeIdx, isStart, isFinish, isWall } = node;
+	const { rowIdx, nodeIdx, isStart, isFinish, isWall, isVisited } = node;
 
-	const className = isStart ? 'node-start' : isFinish ? 'node-finish' : isWall ? 'node-wall' : 'normal';
+	const className = isStart ? 'node-start' : isFinish ? 'node-finish' : isWall ? 'node-wall' :  'normal';
 	
-	return (
+	
+		return (
 		<td
 			id={`node-${rowIdx}-${nodeIdx}`}
 			key={`node-${rowIdx}-${nodeIdx}`}
@@ -25,6 +26,9 @@ const Node = (props) => {
 			}
 		</td>
 	);
+
+
+
 };
 
 export default Node;

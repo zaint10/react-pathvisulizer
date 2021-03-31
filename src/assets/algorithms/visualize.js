@@ -6,7 +6,7 @@ import {bfs_dfs} from 'assets/algorithms/bfs_dfs'
 import {backtrackingUtil, animatebacktracking, backtracking} from 'assets/algorithms/backtracking.js'
 import {Animate} from 'assets/animate';
 
-export async function visualize({ grid, algorithm, startNode, finishNode }) {
+export async function visualize(grid, algorithm, startNode, finishNode) {
 	const { selected } = algorithm;
 		startNode = grid[startNode.row][startNode.node];
 		finishNode = grid[finishNode.row][finishNode.node];

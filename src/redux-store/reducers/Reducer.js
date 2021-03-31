@@ -5,6 +5,7 @@ import { initialState } from 'assets/initialState.js';
 import { visualize } from 'assets/algorithms/visualize.js';
 import * as animate from 'assets/animate';
 import * as CONSTS from 'assets/consts.js';
+import grid from 'components/container/grid';
 
 const Reducer = (state, action) => {
 	if (state === undefined) {
@@ -20,7 +21,7 @@ const Reducer = (state, action) => {
 			break;
 		}
 		case ACTION.RESET_GRID: {
-			newState = { grid: resetGrid(currState) };
+			newState = { grid: resetGrid(currState), initVisualizer: false, isVisualized: false, };
 			break;
 		}
 		case ACTION.MARK_GRID: {
@@ -41,7 +42,7 @@ const Reducer = (state, action) => {
 			newState = {
 				algorithm: { selected: selectedAlgorithmName },
 				btnVisualize: action.payload.btntitle,
-				selectedDropdownItemKey: action.payload.dropdownItemKey,
+				
 				initVisualizer: false,
 				isVisualized: false,
 			};
@@ -49,12 +50,15 @@ const Reducer = (state, action) => {
 				newState['resetGrid'] = true;
 
 			}
+			if(action.payload.dropdownItemKey){
+				newState['selectedDropdownItemKey'] = action.payload.dropdownItemKey
+			}
 
 			break;
         }
         case ACTION.VISUALIZE: {
 			const { visualize } = action.payload;
-            newState = { initVisualizer: visualize, isVisualized: !visualize };
+            newState = { initVisualizer: visualize, isVisualized: false };
             
 			if (currState['resetGrid']) {
                 newState['grid'] = resetGrid(currState);
@@ -62,10 +66,9 @@ const Reducer = (state, action) => {
 			break;
 		}
 		case ACTION.VISUALIZE_PATH: {
-			
-
-            visualize(currState)
-
+			let { grid, algorithm, startNode, finishNode } = currState
+            visualize(grid, algorithm, startNode, finishNode)
+			newState = { initVisualizer: false, isVisualized: false, grid: grid, startNode: startNode, finishNode: finishNode };
 			break;
 		}
 		case ACTION.START_WALL_CONSTRUCTION: {
@@ -105,23 +108,25 @@ function initGrid(DEFAULT_MARKING, startNode = {}, finishNode = {}) {
 	const [ ROWS, COLS ] = getGridRC();
 	for (let row = 0; row < ROWS; row++) {
 		const currentRow = [];
-		let currentNode = {};
+		
 		for (let col = 0; col < COLS; col++) {
-			currentNode = createNode(row, col, COLS);
-			currentRow.push(currentNode);
+			
+			currentRow.push(createNode(row, col, COLS));
 		}
 		nodes.push(currentRow);
 	}
 
 	if (DEFAULT_MARKING) {
-		nodes[CONSTS.NODE_START.row][CONSTS.NODE_START.col] = {
-			...nodes[CONSTS.NODE_START.row][CONSTS.NODE_START.col],
-			isStart: true
-		};
-		nodes[CONSTS.NODE_FINISH.row][CONSTS.NODE_FINISH.col] = {
-			...nodes[CONSTS.NODE_FINISH.row][CONSTS.NODE_FINISH.col],
-			isFinish: true
-		};
+		if(nodes.length > CONSTS.NODE_START.row)
+			nodes[CONSTS.NODE_START.row][CONSTS.NODE_START.col] = {
+				...nodes[CONSTS.NODE_START.row][CONSTS.NODE_START.col],
+				isStart: true
+			};
+		if(nodes.length > CONSTS.NODE_FINISH.row)
+			nodes[CONSTS.NODE_FINISH.row][CONSTS.NODE_FINISH.col] = {
+				...nodes[CONSTS.NODE_FINISH.row][CONSTS.NODE_FINISH.col],
+				isFinish: true
+			};
 	} else {
 		nodes[startNode.row][startNode.node] = {
             ...nodes[startNode.row][startNode.node],

@@ -117,7 +117,7 @@ function NavBar(props) {
 				</ul>
 				<ul className="navbar-nav justify-content-end mr-auto w-100">
 					<li className="nav-item">
-						<button className=" btn navItem btn-primary">Clear Grid</button>
+						<button className=" btn navItem btn-primary" onClick={props.onClick}>Clear Grid</button>
 					</li>
 					<li className="nav-item">
 						<span onClick={openSettingsNav}>

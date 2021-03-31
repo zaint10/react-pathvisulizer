@@ -18,7 +18,8 @@ class Header extends Component {
         } else if (event_name === 'Visualize') {
             const { selected } = this.props.algorithm;
             if (!selected) {
-                this.props.setVBtnTitle('Pick an Algorithm!');
+                this.props.setAlgorithm(null, null, 'Pick an Algorithm!');
+                
                 return;
             }
             this.props.visualizeAlgorithm(true);
