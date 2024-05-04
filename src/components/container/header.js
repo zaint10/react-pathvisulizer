@@ -31,7 +31,6 @@ class Header extends Component {
         this.props.setAlgorithm(algo, dropdownItemKey, 'Visualize');
     };
     render() {
-        console.log('Rendering Header');
         // console.log(this.props);
         const { selected } = this.props.algorithm;
         const { btnVisualize, selectedDropdownItemKey } = this.props;

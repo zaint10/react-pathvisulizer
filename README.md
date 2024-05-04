@@ -2,6 +2,11 @@
 
 This project is a graphical user interface (GUI) built with React to visualize pathfinding algorithms in action.  It allows users to explore different algorithms and see how they navigate a grid to find the shortest path between two points.
 
+**Visual Demonstration:**
+
+* Check out a video demonstration of the Pathfinding Visualizer in action: [Link to your Loom video](https://www.loom.com/share/393d8ee15a244e8f8d2f5d92401dbb48?sid=4a0fab9a-ac7c-40ef-bb27-35deb97e3874)
+
+
 **Supported Algorithms:**
 
 * Dijkstra's Algorithm

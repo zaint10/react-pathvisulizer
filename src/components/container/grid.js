@@ -162,7 +162,6 @@ class Grid extends Component {
 	}
 
 	render() {
-		console.log('Rendering Grid');
 		const { grid } = this.props;
 		
 		return (
