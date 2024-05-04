@@ -34,24 +34,24 @@ class Animate {
 	}
 }
 
-const djsktra = async (visitedNodesInOrder, nodesInShortestPathOrder) => {
-	return await new Promise((resolve, reject) => {
-		visitedNodesInOrder.forEach((node, i) => {
-			if (i === 0) return;
-			if (i === visitedNodesInOrder.length - 1) {
-				setTimeout(() => {
-					animatePath(nodesInShortestPathOrder);
-					resolve();
-				}, 10 * i);
+// const djsktra = async (visitedNodesInOrder, nodesInShortestPathOrder) => {
+// 	return await new Promise((resolve, reject) => {
+// 		visitedNodesInOrder.forEach((node, i) => {
+// 			if (i === 0) return;
+// 			if (i === visitedNodesInOrder.length - 1) {
+// 				setTimeout(() => {
+// 					animatePath(nodesInShortestPathOrder);
+// 					resolve();
+// 				}, 10 * i);
 
-				return;
-			}
-			setTimeout(() => {
-				document.getElementById(`node-${node.rowIdx}-${node.nodeIdx}`).classList.add('node-visited');
-			}, 10 * i);
-		});
-	});
-};
+// 				return;
+// 			}
+// 			setTimeout(() => {
+// 				document.getElementById(`node-${node.rowIdx}-${node.nodeIdx}`).classList.add('node-visited');
+// 			}, 10 * i);
+// 		});
+// 	});
+// };
 
 const animatePath = (nodesInShortestPathOrder) => {
 	nodesInShortestPathOrder.forEach((node, i) => {

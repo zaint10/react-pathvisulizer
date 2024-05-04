@@ -23,8 +23,8 @@ export function dijkstra(grid, startNode, finishNode) {
 function getAllNode(grid) {
 	const nodes = [];
 	grid.map((row) => {
-		row.map((node) => {
-			nodes.push(node);
+		return row.map((node) => {
+			return nodes.push(node);
 		});
 	});
 
@@ -87,7 +87,7 @@ function maxheapify(arr, length, i) {
 		largest = right;
 	}
 
-	if (largest != i) {
+	if (largest !== i) {
 		[ arr[i], arr[largest] ] = [ arr[largest], arr[i] ];
 		maxheapify(arr, length, largest);
 	}

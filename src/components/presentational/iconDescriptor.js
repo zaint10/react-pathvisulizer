@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import radar from 'assets/icons/radar.svg'
 import dragon_ball from 'assets/icons/drgon_ball_4_stars.png'
 function IconDescriptor(props) {
@@ -7,13 +7,13 @@ function IconDescriptor(props) {
 			<span>
 				<div className="node text-center border-0">
 					{/* <i className="fas fa-broadcast-tower node-start" /> */}
-                    <img src={radar} />
+                    <img src={radar} alt="radar" />
 				</div>
 				Start Node
 			</span>
 			<span>
                 <div className="node text-center border-0">
-                    <img src={dragon_ball} />
+                    <img src={dragon_ball} alt="dbz" />
 					{/* <i className="fas fa-atom fa-lg node-finish"></i> */}
 				</div>
                 Finish Node

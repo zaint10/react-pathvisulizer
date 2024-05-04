@@ -2,11 +2,10 @@ export function bfs_dfs(name, grid, startNode, finishNode) {
     
 	const visitedNodesInOrder = [];
 	startNode.distance = 0;
-	const unvisitedNodes = getAllNode(grid);
 
 	const data_structure = [ startNode ];
 	while (data_structure.length) {
-		const closestNode = name == 'bfs' ? data_structure.shift() : data_structure.pop();
+		const closestNode = name === 'bfs' ? data_structure.shift() : data_structure.pop();
 
 		if (closestNode.isWall) continue;
 		if (closestNode.distance === Infinity) return visitedNodesInOrder;
@@ -54,13 +53,13 @@ function getUnvisitedNeighbors(node, grid, name = '') {
 	return neighbors.filter((neighbor) => !neighbor.isVisited);
 }
 
-function getAllNode(grid) {
-	const nodes = [];
-	grid.map((row) => {
-		row.map((node) => {
-			nodes.push(node);
-		});
-	});
+// function getAllNode(grid) {
+// 	const nodes = [];
+// 	grid.map((row) => {
+// 		row.map((node) => {
+// 			nodes.push(node);
+// 		});
+// 	});
 
-	return nodes;
-}
+// 	return nodes;
+// }

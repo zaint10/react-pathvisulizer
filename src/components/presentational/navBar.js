@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import { Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 import { path_finding_algorithm_mapper, backtracking_algorithm_mapper } from 'assets/consts.js';
 function NavBar(props) {
 	const { btnVisualizeTitle, selectedDropdownItemKey } = props;
@@ -19,9 +18,9 @@ function NavBar(props) {
 		}
 		   
 		menu_items_1.push(
-			<a key={key} data-key={key} className="dropdown-item" href="#">
+			<button key={key} data-key={key} className="dropdown-item">
 				{value}
-			</a>
+			</button>
 		);
 	}
 	
@@ -32,9 +31,9 @@ function NavBar(props) {
 			dropdownTitle2 =  value
 		}
 		menu_items_2.push(
-			<a key={key} data-key={key} className="dropdown-item wrap_text" href="#">
+			<button key={key} data-key={key} className="dropdown-item wrap_text" href="#">
 				{value}
-			</a>
+			</button>
 		);
 	}
 
@@ -54,6 +53,7 @@ function NavBar(props) {
 							className="text-torchred font-weight-bold"
 							href="https://github.com/zaint10?tab=repositories"
 							target="_blank"
+							rel="noreferrer"
 						>
 							By Zain Tanveer
 						</a>
@@ -79,7 +79,7 @@ function NavBar(props) {
 							className="btn btn-primary dropdown-toggle dropdown-toggle text-white navItem text-capitalize"
 							href="#"
 							id="navbarDropdownbtnPathAlgos"
-							role="button"
+							
 							data-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="false"
@@ -96,7 +96,7 @@ function NavBar(props) {
 							className="btn btn-primary dropdown-toggle dropdown-toggle text-white navItem text-capitalize"
 							href="#"
 							id="navbarDropdownbtnBacktracking"
-							role="button"
+							
 							data-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="false"
@@ -133,7 +133,7 @@ function NavBar(props) {
 
 function openSettingsNav(){
 	const width = document.getElementById("settingNavBar").style.width;
-	if(width == '0px'){
+	if(width === '0px'){
 		document.getElementById("settingNavBar").style.width = '350px'
 	}else{
 		document.getElementById("settingNavBar").style.width = '0px'

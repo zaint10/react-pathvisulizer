@@ -26,7 +26,7 @@ export function astar(grid, startNode, finishNode) {
 function getAllNode(grid) {
 	let nodes = [];
 	grid.map((row, idx) => {
-		nodes = nodes.concat(row);
+		return nodes = nodes.concat(row);
 	});
 
 	return nodes;
@@ -35,7 +35,7 @@ function getAllNode(grid) {
 function closestNode(unvisitedNodes) {
 	let currentClosest, index;
 
-	unvisitedNodes.map((node, idx) => {
+	unvisitedNodes.forEach((node, idx) => {
 		if (!currentClosest || currentClosest.totalDistance > node.totalDistance) {
 			currentClosest = node;
 			index = idx;
@@ -56,7 +56,7 @@ function updateNeighbors(currentNode, nodes, grid, startNode, finishNode, heuris
 
 	for (let neighbor of neighbors) {
 		try {
-			let i = nodes.findIndex((node) => node.oneDidx == parseInt(neighbor.oneDidx));
+			let i = nodes.findIndex((node) => node.oneDidx === parseInt(neighbor.oneDidx));
             updateNode(currentNode, nodes[i], finishNode);
             
 		} catch (err) {

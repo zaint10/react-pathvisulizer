@@ -3,7 +3,7 @@ import {getNodesInShortestPathOrder } from 'assets/algorithms/utills'
 import {dijkstra} from 'assets/algorithms/dijkstra.js'
 import {astar} from 'assets/algorithms/astar.js'
 import {bfs_dfs} from 'assets/algorithms/bfs_dfs'
-import {backtrackingUtil, animatebacktracking, backtracking} from 'assets/algorithms/backtracking.js'
+import {animatebacktracking, backtracking} from 'assets/algorithms/backtracking.js'
 import {Animate} from 'assets/animate';
 
 export async function visualize(grid, algorithm, startNode, finishNode) {
@@ -48,6 +48,8 @@ export async function visualize(grid, algorithm, startNode, finishNode) {
             animatebacktracking(visitedNodesInOrder)
             return;
 
+        } default: {
+            
         }
     }
     

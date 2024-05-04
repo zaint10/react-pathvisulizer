@@ -3,9 +3,8 @@ import { initialState } from 'assets/initialState.js';
 
 // import _ from "lodash";
 import { visualize } from 'assets/algorithms/visualize.js';
-import * as animate from 'assets/animate';
 import * as CONSTS from 'assets/consts.js';
-import grid from 'components/container/grid';
+
 
 const Reducer = (state, action) => {
 	if (state === undefined) {
@@ -78,7 +77,7 @@ const Reducer = (state, action) => {
 			break;
 		}
 		default: {
-			break;
+			return currState;
 		}
 	}
 	return Object.assign({}, currState, newState);
@@ -210,10 +209,6 @@ const markGrid2 = (rowIdx, nodeIdx, node_type, { grid }) => {
 	}
 
 	return newState;
-};
-
-const isGridMarked = ({ startNode, finishNode }) => {
-	return startNode.marked && finishNode.marked;
 };
 
 const resetGrid = ({ startNode, finishNode }) => {

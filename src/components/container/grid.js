@@ -6,12 +6,12 @@ import * as CONSTS from 'assets/consts';
 import { connect } from 'react-redux';
 import * as ACTIONS from 'redux-store/action-types';
 
-import { dijkstra } from 'assets/algorithms/dijkstra.js';
-import { bfs_dfs } from 'assets/algorithms/bfs_dfs.js';
-import { astar } from 'assets/algorithms/astar';
-import { getNodesInShortestPathOrder } from 'assets/algorithms/utills';
-import * as animate from 'assets/animate';
-import { timeout, Promise } from 'q';
+// import { dijkstra } from 'assets/algorithms/dijkstra.js';
+// import { bfs_dfs } from 'assets/algorithms/bfs_dfs.js';
+// import { astar } from 'assets/algorithms/astar';
+// import { getNodesInShortestPathOrder } from 'assets/algorithms/utills';
+// import * as animate from 'assets/animate';
+// import { timeout, Promise } from 'q';
 
 class Grid extends Component {
 	constructor(props) {

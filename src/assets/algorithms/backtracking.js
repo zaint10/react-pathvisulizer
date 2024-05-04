@@ -137,7 +137,6 @@ export function backtrackingUtil(grid, col, visitedNodesInOrder) {
     then return true */
 
 	if (col >= COLS) return true;
-	let currentNode;
 	for (let i = 0; i < ROWS; i++) {
 		// Check if the queen can be placed on board[i][col]
 		if (isSafe(grid, i, col)) {
@@ -192,13 +191,13 @@ function isSafe(grid, row, col) {
 	}
 }
 
-function isSafeOptimized(row, col, slashCode, backslashCode, rowLookup, slashCodeLookup, backslashCodeLookup) {
-	if (slashCodeLookup[slashCode[row][col]] || backslashCodeLookup[backslashCode[row][col]] || rowLookup[row]) {
-		return false;
-	}
+// function isSafeOptimized(row, col, slashCode, backslashCode, rowLookup, slashCodeLookup, backslashCodeLookup) {
+// 	if (slashCodeLookup[slashCode[row][col]] || backslashCodeLookup[backslashCode[row][col]] || rowLookup[row]) {
+// 		return false;
+// 	}
 
-	return true;
-}
+// 	return true;
+// }
 
 export async function animatebacktracking(visitedNodesInOrder) {
 	return await new Promise((resolve, reject) => {

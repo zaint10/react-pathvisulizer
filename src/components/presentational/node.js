@@ -4,7 +4,7 @@ import radar from 'assets/icons/radar.svg'
 import dragon_ball from 'assets/icons/drgon_ball_4_stars.svg'
 const Node = (props) => {
 	const { node } = props;
-	const { rowIdx, nodeIdx, isStart, isFinish, isWall, isVisited } = node;
+	const { rowIdx, nodeIdx, isStart, isFinish, isWall } = node;
 
 	const className = isStart ? 'node-start' : isFinish ? 'node-finish' : isWall ? 'node-wall' :  'normal';
 	
@@ -20,9 +20,9 @@ const Node = (props) => {
 			onMouseUp={(e) => props.onMouseUp(e, rowIdx, nodeIdx)}
 		>
 			{className === 'node-start' ?
-				(<img className="node-start" src={radar}/>) : 
+				(<img className="node-start" src={radar} alt="node-start" />) : 
 				className === 'node-finish' ? 
-				(<img className="node-finish" src={dragon_ball}/>) : ''
+				(<img className="node-finish" src={dragon_ball} alt="node-finish" />) : ''
 			}
 		</td>
 	);
