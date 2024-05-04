@@ -56,7 +56,7 @@ function updateNeighbors(currentNode, nodes, grid, startNode, finishNode, heuris
 
 	for (let neighbor of neighbors) {
 		try {
-			let i = nodes.findIndex((node) => node.oneDidx === parseInt(neighbor.oneDidx));
+			let i = nodes.findIndex((node) => parseInt(node.oneDidx) === parseInt(neighbor.oneDidx));
             updateNode(currentNode, nodes[i], finishNode);
             
 		} catch (err) {

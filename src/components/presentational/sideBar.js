@@ -4,20 +4,20 @@ export default function SideNav(props) {
 	return (
 		<nav className="settings-navbar" id="settingNavBar" style={{width: '0px'}}>
 			
-			<ul class="d-flex p-2 w-100">
+			<ul className="d-flex p-2 w-100">
 				
-				<div class="setting-rows-cols-wrapper">
+				<div className="setting-rows-cols-wrapper">
 						
-						<div class="wrap-input100 rs1">
-							<input class="input100" type="number" name="rows" />
-							<span class="label-input100">ROWS</span>
+						<div className="wrap-input100 rs1">
+							<input className="input100" type="number" name="rows" />
+							<span className="label-input100">ROWS</span>
 						</div>
-						<div class="wrap-input100 rs2">
-							<input class="input100" type="number" name="columns" />
-							<span class="label-input100">COLS</span>
+						<div className="wrap-input100 rs2">
+							<input className="input100" type="number" name="columns" />
+							<span className="label-input100">COLS</span>
 						</div>
-						<div class="container-login100-form-btn">
-							<button class="login100-form-btn">Change</button>
+						<div className="container-login100-form-btn">
+							<button className="login100-form-btn">Change</button>
 						</div>
 					
 				</div>

@@ -205,7 +205,7 @@ export async function animatebacktracking(visitedNodesInOrder) {
 			setTimeout(() => {
 				if (node.isQueen) {
 					document.getElementById(`node-${node.rowIdx}-${node.nodeIdx}`).innerHTML =
-						'<i class="fas fa-chess-queen" style="color: #6a0dad"></i>';
+						'<i className="fas fa-chess-queen" style="color: #6a0dad"></i>';
 						document.getElementById(`node-${node.rowIdx}-${node.nodeIdx}`).classList.add('node-q')
 				} else {
 					document.getElementById(`node-${node.rowIdx}-${node.nodeIdx}`).innerHTML = '';
